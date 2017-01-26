@@ -2,7 +2,7 @@
 $SuppressImportModule = $true
 . $PSScriptRoot\Shared.ps1
 
-$ReleaseNotesPath = Join-Path -Path $ProjectRoot -Child "CHANGELOG.md"
+$ReleaseNotesPath = Join-Path -Path $env:BHProjectPath -Child "CHANGELOG.md"
 
 Describe 'Module manifest' {
     Context 'Validation' {
@@ -11,7 +11,7 @@ Describe 'Module manifest' {
 
         It "has a valid manifest" {
             {
-                $script:Manifest = Test-ModuleManifest -Path $ModuleManifestPath -ErrorAction Stop -WarningAction SilentlyContinue
+                $script:Manifest = Test-ModuleManifest -Path $env:BHPSModuleManifest -ErrorAction Stop -WarningAction SilentlyContinue
             } | Should Not Throw
         }
 
@@ -57,7 +57,7 @@ Describe 'Module manifest' {
         $script:ReleaseNotesVersion = $null
         It "has a valid version in the release notes" {
             foreach ($line in (Get-Content $ReleaseNotesPath)) {
-                if ($line -match "^## (?<Version>(\d+\.){1,3}\d+) \(\d{4}-\d{2}-\d{2}\)") {
+                if ($line -match "^## (?<Version>(\d+\.){1,3}\d+)") {
                     $script:ReleaseNotesVersion = $matches.Version
                     break
                 }
@@ -73,3 +73,4 @@ Describe 'Module manifest' {
     }
 
 }
+

@@ -7,20 +7,20 @@ Properties {
 
     # The root directories for the module's docs, src and test.
     [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssigments', '')]
-    $DocsRootDir = "$PSScriptRoot\docs"
-    $SrcRootDir  = "$PSScriptRoot\src"
+    $DocsRootDir = "$env:BHProjectPath\docs"
+    $SrcRootDir  = "$env:BHPSModulePath"
     [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssigments', '')]
-    $TestRootDir = "$PSScriptRoot\test"
+    $TestRootDir = "$env:BHProjectPath\test"
 
     # The name of your module should match the basename of the PSD1 file.
     [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssigments', '')]
-    $ModuleName = Get-Item $SrcRootDir/*.psd1 |
+    $ModuleName = Get-Item $SrcRootDir\*.psd1 |
                       Where-Object { $null -ne (Test-ModuleManifest -Path $_ -ErrorAction SilentlyContinue) } |
                       Select-Object -First 1 | Foreach-Object BaseName
 
     # The $OutDir is where module files and updatable help files are staged for signing, install and publishing.
     [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssigments', '')]
-    $OutDir = "$PSScriptRoot\Release"
+    $OutDir = "$env:BHProjectPath\Release"
 
     # The local installation directory for the install task. Defaults to your home Modules location.
     [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssigments', '')]
@@ -54,7 +54,7 @@ Properties {
 
     # Path to the PSScriptAnalyzer settings file.
     [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssigments', '')]
-    $ScriptAnalyzerSettingsPath = "$PSScriptRoot\ScriptAnalyzerSettings.psd1"
+    $ScriptAnalyzerSettingsPath = "$env:BHProjectPath\ScriptAnalyzerSettings.psd1"
 
     # ------------------- Script signing properties ---------------------------
 
@@ -103,7 +103,7 @@ Properties {
     # acts as a direct input to the Pester -CodeCoverage parameter, so will support constructions
     # like the ones found here: https://github.com/pester/Pester/wiki/Code-Coverage.
     [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssigments', '')]
-    $CodeCoverageFiles = "$SrcRootDir\*.ps1", "$SrcRootDir\*.psm1"
+    $CodeCoverageFiles = Get-ChildItem -Path "$SrcRootDir" -Include *.ps1, *.psm1 -File -Recurse
 
     # -------------------- Publishing properties ------------------------------
 
@@ -120,7 +120,7 @@ Properties {
     # Path to the release notes file.  Set to $null if the release notes reside in the manifest file.
     # The contents of this file are used during publishing for the ReleaseNotes parameter.
     [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssigments', '')]
-    $ReleaseNotesPath = "$PSScriptRoot\ReleaseNotes.md"
+    $ReleaseNotesPath = "$env:BHProjectPath\ReleaseNotes.md"
 
     # ----------------------- Misc properties ---------------------------------
 

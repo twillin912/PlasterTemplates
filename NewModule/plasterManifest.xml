@@ -67,6 +67,9 @@
             <choice label='Add plat&amp;yPS help generation support'
                     help="Adds help build support using platyPS."
                     value="platyPS"/>
+            <choice label='Add App&amp;Veyor build automation support'
+                    help="Adds build automation support using AppVeyor."
+                    value="AppVeyor"/>
         </parameter>
 
         <parameter name='Editor'
@@ -86,7 +89,7 @@
     <content>
         <message>&#10;&#10;Scaffolding your PowerShell Module...&#10;&#10;&#10;</message>
 
-        <newModuleManifest destination='src\${PLASTER_PARAM_ModuleName}.psd1'
+        <newModuleManifest destination='${PLASTER_PARAM_ModuleName}\${PLASTER_PARAM_ModuleName}.psd1'
                            moduleVersion='$PLASTER_PARAM_Version'
                            rootModule='${PLASTER_PARAM_ModuleName}.psm1'
                            author='$PLASTER_PARAM_FullName'
@@ -100,11 +103,11 @@
               source='build*.ps1'
               destination='' />
         <file source='src\Module.psm1'
-              destination='src\${PLASTER_PARAM_ModuleName}.psm1'/>
+              destination='${PLASTER_PARAM_ModuleName}\${PLASTER_PARAM_ModuleName}.psm1'/>
         <file source=''
-              destination='src\Public\'/>
+              destination='${PLASTER_PARAM_ModuleName}\Public\'/>
         <file source=''
-              destination='src\Private\'/>
+              destination='${PLASTER_PARAM_ModuleName}\Private\'/>
         <file source='ScriptAnalyzerSettings.psd1'
               destination=''/>
 
@@ -114,16 +117,19 @@
               destination=''/>
         <templateFile condition="$PLASTER_PARAM_Options -contains 'platyPS'"
                       source='docs\en-US\about_Module.help.md'
-                      destination='docs\en-US\about_${PLASTER_PARAM_ModuleName}.help.md'/>
+                      destination='Docs\en-US\about_${PLASTER_PARAM_ModuleName}.help.md'/>
         <templateFile condition="$PLASTER_PARAM_Options -notcontains 'platyPS'"
                       source='docs\en-US\about_Module.help.txt'
-                      destination='src\en-US\about_${PLASTER_PARAM_ModuleName}.help.txt'/>
+                      destination='${PLASTER_PARAM_ModuleName}\en-US\about_${PLASTER_PARAM_ModuleName}.help.txt'/>
         <templateFile condition="$PLASTER_PARAM_Options -contains 'Pester'"
-                      source='test\*.Tests.ps1'
-                      destination='test\' />
+                      source='Test\*.Tests.ps1'
+                      destination='Test\' />
         <templateFile condition="$PLASTER_PARAM_Options -contains 'Pester'"
-                      source='test\Shared.ps1'
-                      destination='test\Shared.ps1' />
+                      source='Test\Shared.ps1'
+                      destination='Test\Shared.ps1' />
+        <templateFile condition="$PLASTER_PARAM_Options -contains 'AppVeyor'"
+                      source='appveyor.yml'
+                      destination='' />
         <templateFile condition="$PLASTER_PARAM_License -eq 'Apache'"
                       source='license\Apache.txt'
                       destination='LICENSE.txt'

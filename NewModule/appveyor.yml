@@ -1,0 +1,11 @@
+os:
+  - "WMF 5"
+
+branches:
+  only:
+    - master
+    - develop
+
+build_script:
+  - ps: |
+      .\build.ps1
