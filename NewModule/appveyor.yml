@@ -1,11 +1,34 @@
-os:
-  - "WMF 5"
+# version format
+version: <%=$PLASTER_PARAM_Version%>.{build}
 
+# branches to build
 branches:
   only:
     - master
     - develop
 
-build_script:
-  - ps: |
-      .\build.ps1
+# Allow WMF5 (i.e. PowerShellGallery functionality)
+image: WMF 5
+
+#Publish to PowerShell Gallery with this key
+environment:
+  NuGetApiKey:
+    secure: 8fzPA9jCuntNmDKjf/RWRvEQuqqsuMNJ7ywZ2hIWnbrETAWc9JtW3PnhEhnRXaIU
+
+build: false
+
+test_script:
+  - ps: .\build.ps1 Publish
+
+deploy:
+- provider: GitHub
+  release: $(APPVEYOR_PROJECT_NAME)-v$(APPVEYOR_BUILD_VERSION)
+  description: "Production release of $(APPVEYOR_PROJECT_NAME) Version $(APPVEYOR_BUILD_VERSION)"
+  auth_token:
+    secure: 
+  artifact: /.*\.zip/
+  draft: false
+  prerelease: false
+  on:
+    branch: master
+    appveyor_repo_tag: true

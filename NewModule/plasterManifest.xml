@@ -89,7 +89,7 @@
     <content>
         <message>&#10;&#10;Scaffolding your PowerShell Module...&#10;&#10;&#10;</message>
 
-        <newModuleManifest destination='${PLASTER_PARAM_ModuleName}\${PLASTER_PARAM_ModuleName}.psd1'
+        <newModuleManifest destination='src\${PLASTER_PARAM_ModuleName}.psd1'
                            moduleVersion='$PLASTER_PARAM_Version'
                            rootModule='${PLASTER_PARAM_ModuleName}.psm1'
                            author='$PLASTER_PARAM_FullName'
@@ -100,16 +100,19 @@
               source='_gitignore'
               destination='.gitignore' />
         <file condition='$PLASTER_PARAM_Options -contains "psake"'
-              source='build*.ps1'
+              source='build.ps1'
               destination='' />
+        <file condition='$PLASTER_PARAM_Options -contains "psake"'
+              source='build\build*.ps1'
+              destination='build\' />
         <file source='src\Module.psm1'
-              destination='${PLASTER_PARAM_ModuleName}\${PLASTER_PARAM_ModuleName}.psm1'/>
+              destination='src\${PLASTER_PARAM_ModuleName}.psm1'/>
         <file source=''
-              destination='${PLASTER_PARAM_ModuleName}\Public\'/>
+              destination='src\Public\'/>
         <file source=''
-              destination='${PLASTER_PARAM_ModuleName}\Private\'/>
-        <file source='ScriptAnalyzerSettings.psd1'
-              destination=''/>
+              destination='src\Private\'/>
+        <file source='build\scriptanalyzer.settings.ps1'
+              destination='build\scriptanalyzer.settings.ps1'/>
 
         <templateFile source='CHANGELOG.md'
               destination=''/>
@@ -117,16 +120,16 @@
               destination=''/>
         <templateFile condition="$PLASTER_PARAM_Options -contains 'platyPS'"
                       source='docs\en-US\about_Module.help.md'
-                      destination='Docs\en-US\about_${PLASTER_PARAM_ModuleName}.help.md'/>
+                      destination='docs\en-US\about_${PLASTER_PARAM_ModuleName}.help.md'/>
         <templateFile condition="$PLASTER_PARAM_Options -notcontains 'platyPS'"
                       source='docs\en-US\about_Module.help.txt'
-                      destination='${PLASTER_PARAM_ModuleName}\en-US\about_${PLASTER_PARAM_ModuleName}.help.txt'/>
+                      destination='src\en-US\about_${PLASTER_PARAM_ModuleName}.help.txt'/>
         <templateFile condition="$PLASTER_PARAM_Options -contains 'Pester'"
-                      source='Test\*.Tests.ps1'
-                      destination='Test\' />
+                      source='test\*.Tests.ps1'
+                      destination='test\' />
         <templateFile condition="$PLASTER_PARAM_Options -contains 'Pester'"
-                      source='Test\Shared.ps1'
-                      destination='Test\Shared.ps1' />
+                      source='test\Shared.ps1'
+                      destination='test\Shared.ps1' />
         <templateFile condition="$PLASTER_PARAM_Options -contains 'AppVeyor'"
                       source='appveyor.yml'
                       destination='' />
