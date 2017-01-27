@@ -25,7 +25,7 @@ deploy:
   release: $(APPVEYOR_PROJECT_NAME)-v$(APPVEYOR_BUILD_VERSION)
   description: "Production release of $(APPVEYOR_PROJECT_NAME) Version $(APPVEYOR_BUILD_VERSION)"
   auth_token:
-    secure: 
+    secure: 3GTTXmNgNrCZkv0w/qp8+Be5+f/ApC3bqm5eqSnFcMmb2Muu7KMInEQDJPiU6pj8
   artifact: /.*\.zip/
   draft: false
   prerelease: false
