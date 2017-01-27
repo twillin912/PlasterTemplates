@@ -441,7 +441,9 @@ Task Test -depends Build -requiredVariables TestRootDir, ModuleName, CodeCoverag
             [xml]$PesterContent = Get-Content $TestOutputFile
             $PesterContent.'test-results'.'test-suite'.type = "Powershell"
             $PesterContent.Save($TestOutputFile)
-            (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", $TestOutputFile)
+            (New-Object 'System.Net.WebClient').UploadFile(
+                "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)",
+                $TestOutputFile)
         }
     }
     finally {
@@ -463,7 +465,7 @@ Task CorePublish -requiredVariables SettingsPath, ModuleOutDir {
     if ( $env:APPVEYOR ) {
         Add-Type -AssemblyName System.IO.Compression.FileSystem
         $ZipFile = "$ScratchRootDir\$ModuleName-$env:APPVEYOR_BUILD_VERSION.zip" 
-        [System.IO.Compression.ZipFile]::CreateFromDirectory("$ModuleOutDir", $ZipFile)
+        [System.IO.Compression.ZipFile]::CreateFromDirectory("$OutDir", $ZipFile)
         Push-AppveyorArtifact $ZipFile
     }
 }
