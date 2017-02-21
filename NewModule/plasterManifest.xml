@@ -113,8 +113,12 @@
               destination='src\Private\'/>
         <file source='build\scriptanalyzer.settings.ps1'
               destination='build\scriptanalyzer.settings.ps1'/>
+        <file source='editor\.editorconfig'
+              destination='.editorconfig' />
 
         <templateFile source='CHANGELOG.md'
+              destination=''/>
+        <templateFile source='README.md'
               destination=''/>
         <templateFile source='ReleaseNotes.md'
               destination=''/>
@@ -135,11 +139,11 @@
                       destination='' />
         <templateFile condition="$PLASTER_PARAM_License -eq 'Apache'"
                       source='license\Apache.txt'
-                      destination='LICENSE.txt'
+                      destination='LICENSE'
                       encoding="UTF8-NoBOM"/>
         <templateFile condition="$PLASTER_PARAM_License -eq 'MIT'"
                       source='license\MIT.txt'
-                      destination='LICENSE.txt' />
+                      destination='LICENSE' />
 
         <file condition="($PLASTER_PARAM_Editor -eq 'VSCode') -and ($PLASTER_PARAM_Options -notcontains 'psake') -and ($PLASTER_PARAM_Options -contains 'Pester')"
               source='editor\VSCode\tasks_pester.json'
@@ -153,8 +157,16 @@
               source='editor\VSCode\tasks_psake_pester.json'
               destination='.vscode\tasks.json' />
 
-        <file condition="($PLASTER_PARAM_Editor -eq 'VSCode') -and ($PLASTER_PARAM_Options -contains 'PSScriptAnalyzer')"
+        <file condition="($PLASTER_PARAM_Editor -eq 'VSCode')"
+              source='editor\VSCode\launch.json'
+              destination='.vscode\launch.json' />
+
+        <file condition="($PLASTER_PARAM_Editor -eq 'VSCode') -and ($PLASTER_PARAM_Options -notcontains 'PSScriptAnalyzer')"
               source='editor\VSCode\settings.json'
+              destination='.vscode\settings.json' />
+
+        <file condition="($PLASTER_PARAM_Editor -eq 'VSCode') -and ($PLASTER_PARAM_Options -contains 'PSScriptAnalyzer')"
+              source='editor\VSCode\settings.sa.json'
               destination='.vscode\settings.json' />
 
         <requireModule name="Pester" condition='$PLASTER_PARAM_Options -contains "Pester"' minimumVersion="3.4.0"
