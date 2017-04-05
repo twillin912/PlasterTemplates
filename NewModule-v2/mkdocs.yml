@@ -1,0 +1,8 @@
+site_name: <%=$PLASTER_PARAM_ModuleName%> Documentation
+repo_url: https://github.com/twillin912/<%=$PLASTER_PARAM_ModuleName%>
+theme: readthedocs
+pages:
+  - Home: index.md
+  - <%=$PLASTER_PARAM_ModuleName%> Basics:
+    - Quick Start: quickstart.md
+  - Functions:
