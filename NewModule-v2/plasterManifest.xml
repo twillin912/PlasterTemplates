@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plasterManifest schemaVersion="0.4" xmlns="http://www.microsoft.com/schemas/PowerShell/Plaster/v1">
+    <metadata>
+        <id>417bc697-bdba-4201-b701-a93e8172ddd0</id>
+        <name>NewModule-v2</name>
+        <title>New Module Version 2</title>
+        <description>Scaffolds the files required for a PowerShell module.</description>
+        <version>1.0.0</version>
+        <tags>Module, ModuleManifest, Build</tags>
+    </metadata>
+
+    <parameters>
+        <parameter name='ModuleName'
+                   type='text'
+                   prompt='Enter the name of the module'/>
+
+        <parameter name='ModuleDesc'
+                   type='text'
+                   prompt='Enter a description of the module (required for publishing to the PowerShell Gallery)'/>
+
+        <parameter name='Version'
+                   type='text'
+                   prompt='Enter the version number of the module'
+                   default='0.1'/>
+
+        <parameter name='FullName'
+                   type='user-fullname'
+                   prompt='Enter your full name'
+                   store='text' />
+
+        <parameter name='License'
+                   type='choice'
+                   prompt='Select a license (see http://choosealicense.com for help choosing):'
+                   default='0'
+                   store='text'>
+            <choice label='&amp;None'
+                    help="No license."
+                    value="None"/>
+            <choice label='&amp;Apache'
+                    help="Adds an Apache license file."
+                    value="Apache"/>
+            <choice label='&amp;BSD'
+                    help="Adds an BSD license file."
+                    value="BSD"/>
+            <choice label='&amp;MIT'
+                    help="Adds an MIT license file."
+                    value="MIT"/>
+        </parameter>
+    </parameters>
+
+    <content>
+        <message>&#10;&#10;Scaffolding your PowerShell Module...&#10;&#10;&#10;</message>
+
+        <newModuleManifest destination='${PLASTER_PARAM_ModuleName}\${PLASTER_PARAM_ModuleName}.psd1'
+                           moduleVersion='${PLASTER_PARAM_Version}.0'
+                           rootModule='${PLASTER_PARAM_ModuleName}.psm1'
+                           author='$PLASTER_PARAM_FullName'
+                           description='$PLASTER_PARAM_ModuleDesc'
+                           encoding='UTF8-NoBOM'/>
+
+        <file source='_gitignore'
+              destination='.gitignore' />
+        <file source='_editorconfig'
+              destination='.editorconfig' />
+        <file source='editor\VSCode\**\*'
+              destination='.vscode' />
+
+        <file source='build.ps1'
+              destination='' />
+        <file source='build\**\*'
+              destination='build\' />
+        <templateFile source='module.settings.ps1'
+                      destination=''/>
+
+        <file source=''
+              destination='${PLASTER_PARAM_ModuleName}\Formats\'/>
+        <file source=''
+              destination='${PLASTER_PARAM_ModuleName}\Public\'/>
+        <file source=''
+              destination='${PLASTER_PARAM_ModuleName}\Private\'/>
+        <templateFile source='src\Module.psm1'
+                      destination='${PLASTER_PARAM_ModuleName}\${PLASTER_PARAM_ModuleName}.psm1'/>
+        <templateFile source='src\Module.Resources.psd1'
+                      destination='${PLASTER_PARAM_ModuleName}\en-US\${PLASTER_PARAM_ModuleName}.Resources.psd1'/>
+
+        <templateFile source='CHANGELOG.md'
+                      destination=''/>
+        <templateFile source='README.md'
+                      destination=''/>
+        <templateFile source='RELEASENOTES.md'
+                      destination=''/>
+
+        <templateFile source='tests\**\*'
+                      destination='tests\' />
+
+
+        <templateFile source='mkdocs.yml'
+                      destination=''/>
+        <templateFile source='docs\about_Module.help.md'
+                      destination='docs\about_${PLASTER_PARAM_ModuleName}.help.md'/>
+        <templateFile source='docs\index.md'
+                      destination='docs\index.md'/>
+        <templateFile source='docs\quickstart.md'
+                      destination='docs\quickstart.md'/>
+        <templateFile source='appveyor.yml'
+                      destination='' />
+
+        <templateFile condition="$PLASTER_PARAM_License -eq 'Apache'"
+                      source='license\Apache.txt'
+                      destination='LICENSE'
+                      encoding="UTF8-NoBOM"/>
+        <templateFile condition="$PLASTER_PARAM_License -eq 'BSD'"
+                      source='license\BSD.txt'
+                      destination='LICENSE'
+                      encoding="UTF8-NoBOM"/>
+        <templateFile condition="$PLASTER_PARAM_License -eq 'MIT'"
+                      source='license\MIT.txt'
+                      destination='LICENSE' />
+        <message>
+
+Your new PowerShell module project '$PLASTER_PARAM_ModuleName' has been created.
+
+        </message>
+    </content>
+</plasterManifest>
