@@ -96,8 +96,8 @@
 
         <templateFile source='mkdocs.yml'
                       destination=''/>
-        <templateFile source='docs\about_Module.help.md'
-                      destination='docs\about_${PLASTER_PARAM_ModuleName}.help.md'/>
+        <templateFile source='docs\about_Module.md'
+                      destination='docs\about_${PLASTER_PARAM_ModuleName}.md'/>
         <templateFile source='docs\index.md'
                       destination='docs\index.md'/>
         <templateFile source='docs\quickstart.md'

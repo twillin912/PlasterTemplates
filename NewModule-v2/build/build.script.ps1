@@ -131,6 +131,13 @@ Add-BuildTask ExternalHelp {
         Write-Warning -Message ('No markdown help files to process. Skipping "{0}" task.' -f $Task.Name)
         return
     }
+
+    $HelpSource = @($DocsPath)
+    if (Test-Path -Path (Join-Path -Path $DocsPath -ChildPath 'Functions') ) {
+        $HelpSource += Join-Path -Path $DocsPath -ChildPath 'Functions'
+    }
+
+    New-ExternalHelp -Path $HelpSource -Force -OutputPath "$env:BHPSModulePath/en-US" | Out-Null
 }
 
 
@@ -183,7 +190,7 @@ Add-BuildTask ConfirmTests {
     Assert-Build ($FailCount -eq 0) ('Failed "{0}" unit tests.' -f $FailCount)
 }
 
-# SYNOPSIS: Run unit testing with Pester
+# SYNOPSIS: Publish Module using PSDeploy
 Add-BuildTask Publish ., {
     $PublishParams = @{
         Path = "$env:BHProjectPath/build"

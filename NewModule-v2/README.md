@@ -22,5 +22,3 @@ PS> Get-Command -Module <%=$PLASTER_PARAM_ModuleName%>
 ```
 
 ## Notes
-
-Thanks go to:
