@@ -50,7 +50,7 @@ Add-BuildTask PSParser {
 
 # SYNOPSIS: Lint code with PSScriptAnalyzer
 Add-BuildTask PSAnalyzer {
-    $AnalyzeResults = Invoke-ScriptAnalyzer -Path $env:BHPSModulePath -Recurse
+    $AnalyzeResults = Invoke-ScriptAnalyzer -Path $env:BHPSModulePath -Recurse -Settings "$BuildPath\scriptanalyzer.settings.psd1"
     $AnalyzeResults | ConvertTo-Json | Set-Content (Join-Path $ArtifactPath 'ScriptAnalysisResults.json')
 
     if ($AnalyzeResults) {
@@ -131,7 +131,6 @@ Add-BuildTask ExternalHelp {
         Write-Warning -Message ('No markdown help files to process. Skipping "{0}" task.' -f $Task.Name)
         return
     }
-    PlatyPS\New-ExternalHelp -Path "$DocsPath" -Force -OutputPath "$env:BHPSModulePath/en-US" | Out-Null
 }
 
 

@@ -6,3 +6,4 @@ pages:
   - <%=$PLASTER_PARAM_ModuleName%> Basics:
     - Quick Start: quickstart.md
   - Functions:
+    - New-Function: index.md
