@@ -1,7 +1,7 @@
 # <%=$PLASTER_PARAM_ModuleName%> PowerShell Module
 
-[![Build status](https://ci.appveyor.com/api/projects/status/github/twillin912/<%=$PLASTER_PARAM_ModuleName.ToLower()%>?branch=stable&passingText=stable%20-%20OK&svg=true)](https://ci.appveyor.com/project/twillin912/<%=$PLASTER_PARAM_ModuleName.ToLower()%>/branch/stable)
-[![Documentation Status](http://readthedocs.org/projects/<%=$PLASTER_PARAM_ModuleName.ToLower()%>/badge/?version=latest)](http://<%=$PLASTER_PARAM_ModuleName.ToLower()%>.readthedocs.io/en/latest/?badge=latest)
+[![Build status](https://ci.appveyor.com/api/projects/status/github/twillin912/ps<%=$PLASTER_PARAM_ModuleName.ToLower()%>?branch=stable&passingText=stable%20-%20OK&svg=true)](https://ci.appveyor.com/project/twillin912/ps<%=$PLASTER_PARAM_ModuleName.ToLower()%>/branch/stable)
+[![Documentation Status](http://readthedocs.org/projects/ps<%=$PLASTER_PARAM_ModuleName.ToLower()%>/badge/?version=latest)](http://ps<%=$PLASTER_PARAM_ModuleName.ToLower()%>.readthedocs.io/en/latest/?badge=latest)
 
 <%=$PLASTER_PARAM_ModuleDesc%>
 

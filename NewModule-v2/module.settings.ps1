@@ -10,7 +10,7 @@ $Description    = '<%=$PLASTER_PARAM_ModuleDesc%>'
 $Tags           = @()
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssigments', '')]
-$ProjectUri     = "https://github.com/twillin912/${env:BHProjectName}"
+$ProjectUri     = "https://github.com/twillin912/PS${env:BHProjectName}"
 [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssigments', '')]
 $Repository     = "${ProjectUri}.git"
 [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssigments', '')]
